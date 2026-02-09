@@ -1,8 +1,9 @@
 #include <stdlib.h>
+#include <unistd.h>
 
-void	ft_putchar(int nb)
+void	ft_putchar(char c)
 {
-	write(1,nb,1);
+	write(1,&c,1);
 }
 
 void	ft_putnbr(int nb)
@@ -43,18 +44,19 @@ char	*ft_itoa(int nbr)
 	char *str ;
 	total_nbr = count_nbr(nbr);
 	str = malloc(total_nbr + 1);
-	str[total_nbr - 1] = '\0';
-	i = 0;
-	while (str[i] != '\0')
+	str[total_nbr] = '\0';
+	i = total_nbr - 1;
+	while (nbr != 0)
 	{
-		str[i] = nbr % 10 + '0';
+		str[i] = (nbr % 10) + '0';
 		nbr = nbr / 10;
-	i++;
+	i--;
 	}
+	return str;
 }
 
 int	main()
 {
-	int	nb = ft_itoa(nbr);
-	ft_putnbr(nb);
+	char *	str = ft_itoa(1234);
+	write(1,str,4);
 }
